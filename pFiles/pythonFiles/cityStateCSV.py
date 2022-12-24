@@ -2,7 +2,7 @@ import pandas as pd
 import time
 sTime = time.process_time()
 df = pd.read_csv(
-'C:\\Users\\vpjon\\OneDrive\\Documents\\Research Project\\pFiles\\yelp_business.csv',
+'C:\\Users\\vpjon\\OneDrive\\Documents\\Research Project\\csvFiles\\yelp_business.csv',
 header=0, 
 #index_col='review_id',
 index_col = 'business_id',

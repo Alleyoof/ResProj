@@ -4,7 +4,7 @@ from sklearn.metrics.pairwise import linear_kernel
 import time
 
 startTime = time.process_time()
-ds = pd.read_csv("C:\\Users\\vpjon\\OneDrive\\Documents\\Research Project\\csvFiles\\busimad_wis.csv")
+ds = pd.read_csv("C:\\Users\\vpjon\\OneDrive\\Documents\\Research Project\\csvFiles\\bmad_wis.csv")
 tf = TfidfVectorizer(analyzer='word', ngram_range=(1, 3), min_df=0, stop_words='english')
 tfidf_matrix = tf.fit_transform(ds['categories'])
 

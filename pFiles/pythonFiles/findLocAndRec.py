@@ -66,7 +66,7 @@ for place in query_result.places:
 realPlaces = []
 realCoords = []
 businessIds = []
-with open('C:\\Users\\vpjon\\OneDrive\\Documents\\Research Project\\csvFiles\\busimad_wis.csv', 'r', encoding="utf-8") as file:
+with open('C:\\Users\\vpjon\\OneDrive\\Documents\\Research Project\\csvFiles\\bmad_wis.csv', 'r', encoding="utf-8") as file:
     data = list(reader(file))[1:]
     for i, v in enumerate(data):
         if v[1][1:-1] in placeNames and v[1][1:-1] not in realPlaces:
