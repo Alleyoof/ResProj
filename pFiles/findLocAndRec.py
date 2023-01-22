@@ -66,19 +66,19 @@ for place in query_result.places:
 realPlaces = []
 realCoords = []
 businessIds = []
-with open('C:\\Users\\vpjon\\OneDrive\\Documents\\Research Project\\csvFiles\\bmad_wis.csv', 'r', encoding="utf-8") as file:
+with open('csvFiles/dbmad_wis.csv', 'r', encoding="utf-8") as file:
     data = list(reader(file))[1:]
     for i, v in enumerate(data):
         if v[1][1:-1] in placeNames and v[1][1:-1] not in realPlaces:
-            if sameLatLong(float(v[7]), float(v[8]), 
+            if sameLatLong(float(v[5]), float(v[6]), 
             inputLat, inputLong):
                 realPlaces.append(v[1][1:-1])
                 myI = realPlaces.index(v[1][1:-1])
                 realCoords.append((float(placeCoords[myI][0]), float(placeCoords[myI][1])))
                 businessIds.append(v[0])
-print(realPlaces)
-print(realCoords)
-print(businessIds)
+# print(realPlaces)
+# print(realCoords)
+# print(businessIds)
 
 """the below code will eventually have to use the user's data and store it as
 an id in the table: it could be appended to the review_mini dataset, or somewhere 

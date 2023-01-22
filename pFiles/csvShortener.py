@@ -1,6 +1,6 @@
 import pandas as pd
 df = pd.read_csv(
-'C:\\Users\\vpjon\\OneDrive\\Documents\\Research Project\\csvFiles\\yelp_review.csv',
+'csvFiles/yelp_review.csv',
 header=0, 
 index_col='review_id',
 #index_col = 'business_id',

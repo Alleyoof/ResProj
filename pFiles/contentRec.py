@@ -4,7 +4,7 @@ from sklearn.metrics.pairwise import linear_kernel
 import time
 
 startTime = time.process_time()
-ds = pd.read_csv("C:\\Users\\vpjon\\OneDrive\\Documents\\Research Project\\csvFiles\\bmad_wis.csv")
+ds = pd.read_csv("csvFiles/bmad_wis.csv")
 tf = TfidfVectorizer(analyzer='word', ngram_range=(1, 3), min_df=0, stop_words='english')
 tfidf_matrix = tf.fit_transform(ds['categories'])
 
@@ -35,5 +35,5 @@ def recommend(item_id, num):
     for rec in recs:
         print("Recommended: " + item(rec[1]) + " (score:" + str(rec[0]) + ")")
 
-#recommend(item_id='d5MXSInbPrPGK1lZxA3orQ', num=15)
+# recommend(item_id='d5MXSInbPrPGK1lZxA3orQ', num=15)
 print(f'Time: {time.process_time() - startTime:.3}s')
