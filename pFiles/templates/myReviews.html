@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Your listed reviews.</title>
+    </head>
+    <body>
+        <p>{{reviews}}</p>
+        <p>The below form can be used to delete a review.</p>
+        <form action = "delReview" method = 'post'>
+            <input type = "text" id = "address" name = "address" placeholder="address">
+            <input type = "text" id = 'city' name = 'city' placeholder="city">
+            <input type = "text" id = 'state' name = 'state' placeholder="state">
+            <input type = "number" id = 'rating' name = 'rating' min = '1' max = '5' placeholder = 'rating'>
+            <button type="submit" value="submit">Submit</button>
+        </form>
+    </body>
+</html>

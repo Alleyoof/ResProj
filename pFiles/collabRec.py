@@ -6,7 +6,7 @@ import time
 from csv import reader
 
 startTime = time.process_time()
-with open('csvFiles/ymad_wis.csv', 'r', encoding="utf-8") as file:
+with open('../csvFiles/ymad_wis.csv', 'r', encoding="utf-8") as file:
     data = list(reader(file))
 initDict = { 
     # userID : [[business, rating]]
