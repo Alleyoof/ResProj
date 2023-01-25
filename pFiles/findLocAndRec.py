@@ -39,10 +39,9 @@ def searchLocationsRec(inputLat, inputLong, myRadius, marginOfError, contentAttr
 		types =[types.TYPE_RESTAURANT])
 
     if query_result.has_attributions:
-	    print(query_result.html_attributions)
-
-    # app = Nominatim(user_agent="tutorial")
+        print(query_result.html_attributions)
     placeNames = []
+    # app = Nominatim(user_agent="tutorial")
     placeCoords = [] # stores place coords, tuples of lat and lng
     for place in query_result.places:
         #print(place)
