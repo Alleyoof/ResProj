@@ -7,6 +7,18 @@
     </head>
     <body>
         <p>Welcome {{name}}!</p>
+        <p>Input your respective data to generate a recommended area to go to.</p>
+        <form action= "/generateRec" method = "post">
+            <input type = "text" id = 'latitude' name = 'latitude' placeholder="latitude">
+            <input type = "text" id = 'longitude' name = 'longitude' placeholder="longtitude">
+            <input type = "text" id = 'searchRadius' name = 'searchRadius' placeholder="searchRadius">
+            <input type = "text" id = 'types' name = 'types' placeholder="types of places to go to">
+            <input type = "text" id = 'categories' name = 'categories' placeholder="categories">
+            <input type = "text" id = 'numSug' name = 'numSug' placeholder="number of suggestions">
+            <input type = "text" id = 'city' name = 'city' placeholder="city">
+            <input type = "text" id = 'state' name = 'state' placeholder="state">
+            <button type="submit" value="submit">Submit</button>
+        </form>
         <p>Input places and their respective rating into the query below</p>
         <form action= "/receiveAdd" method = "post">
             <input type = "text" id = 'address' name = 'address' placeholder="address">

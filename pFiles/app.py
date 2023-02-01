@@ -45,14 +45,10 @@ def addToTable():
     state = request.form.get('state')
     val = findAdd(address, city, state, userID, rating)
     if val == -1:
-        print()
         print('value failed to add')
-        print()
         # do something to show it broke
     else:
-        print()
         print('value added')
-        print()
     return redirect('/home')
 
 @app.route('/allReviews', methods = ["GET", "POST"])
@@ -83,6 +79,28 @@ def delRev():
         print('value failed to add')
         print()
     return redirect('/home')
+
+@app.route('/generateRec', methods = ["GET", "POST"])
+def createRec():
+    latitude = float(request.form.get('latitude', 0))
+    longitude = float(request.form.get('longitude', 0))
+    searchRadius = int(request.form.get('searchRadius', 0))
+    categories = request.form.get('categories', 0).split(",")
+    numSug = int(request.form.get('numSug', 0))
+    city = request.form.get('city', 0)
+    state = request.form.get('state', 0)
+    types = request.form.get('types', 0)
+    userID = session.get('user')['email']
+    # searchLocationsRec(latitude, longitude, searchRadius, categories, 
+    # numSug, city, state, userID)
+    collabVals, contentVals = searchLocationsRec(latitude, longitude, searchRadius, categories, 
+    numSug, city, state, 'G5BqF32PyIQ5IvplDvpKnA')
+    myStr = ""
+    for c in collabVals:
+        myStr += f'{c[0][1:-1]} | {c[1]}\n'
+    for c in contentVals:
+        myStr += f'{c[0][1:-1]} | {c[1]}\n'
+    return render_template("recResults.html", results = myStr)
 
 @app.route('/login')
 def login():

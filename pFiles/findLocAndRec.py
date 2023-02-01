@@ -5,8 +5,8 @@ import time
 import pandas as pd
 from pprint import pprint
 from csv import reader
-from collabRec import algo
-from contentRec import recommend
+from collabRec import makeCollab
+from contentRec import makeContent, recommend
 
 # the below code uses an ip address, somewhat inaccurate
 # g = geocoder.ip('me')
@@ -29,14 +29,15 @@ google_places = GooglePlaces(API_KEY)
 def sameLatLong(lat1, long1, lat2, long2, MOE): 
     return True if abs(lat1 - lat2) < MOE and abs(long1 - long2) < MOE else False
 
-def searchLocationsRec(inputLat, inputLong, myRadius, marginOfError, contentAttributes, numOfSug):
+def searchLocationsRec(inputLat, inputLong, myRadius, contentAttributes, 
+numOfSug, myCity, myState, userID, typeList = types.TYPE_RESTAURANT, marginOfError = 0.003):
     # startTime = time.process_time()
     print(f'Starting searchLocationsRec')
     query_result = google_places.nearby_search( # searches nearby places, takes a type of location
 		lat_lng= {'lat': inputLat, 'lng': inputLong}, #Madison, Wisconscin
 		#lat_lng ={'lat': g.lat, 'lng': g.lng},
 		radius = myRadius, #radius in meters
-		types =[types.TYPE_RESTAURANT])
+		types = typeList)
 
     if query_result.has_attributions:
         print(query_result.html_attributions)
@@ -57,7 +58,7 @@ def searchLocationsRec(inputLat, inputLong, myRadius, marginOfError, contentAttr
     realPlaces = []
     realCoords = []
     businessIds = []
-    with open('../csvFiles/bmad_wis.csv', 'r', encoding="utf-8") as file:
+    with open(f'../csvFiles/b{myCity.lower()[:3]}_{myState.lower()[:3]}.csv', 'r', encoding="utf-8") as file:
         data = list(reader(file))[1:]
         for i, v in enumerate(data):
             if v[1][1:-1] in placeNames and v[1][1:-1] not in realPlaces:
@@ -73,14 +74,21 @@ def searchLocationsRec(inputLat, inputLong, myRadius, marginOfError, contentAttr
     """the below code will eventually have to use the user's data and store it as
     an id in the table: it could be appended to the review_mini dataset, or somewhere 
     else"""
-    # currently, the next goal is to try to filter the review data so it 
-
+    # currently, the next goal is to try to filter the review data so it
+    collabResults = [] 
+    algo = makeCollab(myCity=myCity, myState=myState)
+    ds, results = makeContent(myCity=myCity, myState=myState, categories=contentAttributes)
     # only uses the places in Madison
     for i, v in enumerate(businessIds):
-        prediction = algo.predict("_L2SZSwf7A6YSrIHy_q4cw", v)
-        print(f'Collab: {realPlaces[i]} - {prediction.est}')
-    recommend(businessIds[0], numOfSug)
+        prediction = algo.predict(userID, v)
+        collabResults.append((realPlaces[i], prediction.est))
+        # print(f'Collab: {realPlaces[i]} - {prediction.est}')
+    contentResults = recommend(ds, results, "addedCategory", numOfSug)
+    print(collabResults)
+    print(contentResults)
+    return collabResults, contentResults
     # print(f'findandrec done in {time.process_time()-startTime:.3}s')
 
 # searchLocationsRec(inputLat=43.0748679, inputLong=-89.3941289, myRadius=5000, 
-# marginOfError=0.03, contentAttributes=['Ice Cream & Frozen Yogurt'], numOfSug=5)
+# marginOfError=0.03, contentAttributes=['Ice Cream & Frozen Yogurt'], numOfSug=5,
+# myCity="Madison", myState="Wisconsin")
