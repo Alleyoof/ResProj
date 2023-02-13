@@ -75,14 +75,14 @@ def getReviews(userID, myCity, myState):
     if len(myReviews) == 0:
         print('No reviews for user')
         return -1
-    for v in myReviews['business_id']:
+    for i, v in enumerate(myReviews['business_id']):
         myRow = dfbusi[dfbusi['business_id'] == v]
         name = myRow['name'].iloc[0]
         address = myRow['address'].iloc[0]
-        rating = myReviews['stars'].iloc[0]
-        listOfReviews.append((name, address[1:-1], rating))
+        rating = myReviews['stars'].iloc[i]
+        listOfReviews.append((name[1:-1], address[1:-1], rating))
         # add to listofreviews
-    print(listOfReviews)
+    # print(listOfReviews)
     return listOfReviews
 
 def randomword(length):

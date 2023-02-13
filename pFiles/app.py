@@ -4,6 +4,7 @@ import os
 import pandas as pd
 from findLocAndRec import searchLocationsRec
 from csvMethods import *
+from googleplaces import types
 #https://github.com/authlib/demo-oauth-client/blob/master/flask-google-login/app.py
 
 app = Flask(__name__)
@@ -59,10 +60,7 @@ def getRev():
     val = getReviews(userID, city, state)
     if val == -1:
         return redirect('/home')
-    myStr = "Name | Address | Rating\n"
-    for c in val:
-        myStr += f'{c[0][1:-1]} | {c[1]} | {c[2]}\n'
-    return render_template('myReviews.html', reviews = myStr)
+    return render_template('myReviews.html', reviews = val)
 
 @app.route('/delReview', methods = ["GET", "POST"])
 def delRev():
@@ -75,9 +73,7 @@ def delRev():
     state = request.form.get('state')
     val = findDel(address, city, state, userID, rating)
     if val == -1:
-        print()
         print('value failed to add')
-        print()
     return redirect('/home')
 
 @app.route('/generateRec', methods = ["GET", "POST"])
@@ -85,22 +81,21 @@ def createRec():
     latitude = float(request.form.get('latitude', 0))
     longitude = float(request.form.get('longitude', 0))
     searchRadius = int(request.form.get('searchRadius', 0))
-    categories = request.form.get('categories', 0).split(",")
+    categories = [request.form.get('categories', 0)]
     numSug = int(request.form.get('numSug', 0))
     city = request.form.get('city', 0)
     state = request.form.get('state', 0)
-    types = request.form.get('types', 0)
+    type = request.form.get('types', 0)
+    if type == "restaurant":
+        myType = types.TYPE_RESTAURANT
+    else:
+        myType = types.TYPE_BANK
     userID = session.get('user')['email']
-    # searchLocationsRec(latitude, longitude, searchRadius, categories, 
-    # numSug, city, state, userID)
-    collabVals, contentVals = searchLocationsRec(latitude, longitude, searchRadius, categories, 
-    numSug, city, state, 'G5BqF32PyIQ5IvplDvpKnA')
-    myStr = ""
-    for c in collabVals:
-        myStr += f'{c[0][1:-1]} | {c[1]}\n'
-    for c in contentVals:
-        myStr += f'{c[0][1:-1]} | {c[1]}\n'
-    return render_template("recResults.html", results = myStr)
+    # collabVals = searchLocationsRec(latitude, longitude, searchRadius,  
+    # numSug, city, state, userID, typeList=myType)
+    collabVals, contentVals = searchLocationsRec(latitude, longitude, searchRadius,  
+    numSug, city, state, 'KoY4KGxev8gdg5qQpyDlZA', typeList=myType, contentAttributes=categories)
+    return render_template("recResults.html", res1 = collabVals, res2 = contentVals)
 
 @app.route('/login')
 def login():

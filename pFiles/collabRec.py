@@ -4,11 +4,15 @@ from surprise import KNNWithMeans
 import pandas as pd
 import time
 from csv import reader
-def makeCollab(myCity, myState):
+def makeCollab(myCity, myState, test=False):
     global algo, reader
     startTime = time.process_time()
-    with open(f'../csvFiles/y{myCity.lower()[:3]}_{myState.lower()[:3]}.csv', 'r', encoding="utf-8") as file:
-        data = list(reader(file))
+    if not test:
+        with open(f'../csvFiles/y{myCity.lower()[:3]}_{myState.lower()[:3]}.csv', 'r', encoding="utf-8") as file:
+            data = list(reader(file))
+    else:
+        with open(f'../csvFiles/yTrain{myCity.lower()[:3]}_{myState.lower()[:3]}.csv', 'r', encoding="utf-8") as file:
+            data = list(reader(file))
     myVals = {
         "user" : [],
         "business": [],
