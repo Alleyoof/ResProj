@@ -36,11 +36,12 @@ numOfSug, myCity, myState, userID, typeList, marginOfError = 0.03,
 contentAttributes = ['Restaurant']):
     # startTime = time.process_time()
     print(f'Starting searchLocationsRec')
+    # print(f'Type: {typeList}')
     query_result = google_places.nearby_search( # searches nearby places, takes a type of location
 		lat_lng= {'lat': inputLat, 'lng': inputLong}, #Madison, Wisconscin
 		#lat_lng ={'lat': g.lat, 'lng': g.lng},
 		radius = myRadius, #radius in meters
-		types = typeList)
+		type = typeList) # this should NOT be types
 
     if query_result.has_attributions:
         print(query_result.html_attributions)
@@ -76,12 +77,10 @@ contentAttributes = ['Restaurant']):
                     realCoords.append((float(placeCoords[myI][0]), float(placeCoords[myI][1])))
                     realAddresses.append(placeAddresses) # add stuff
                     businessIds.append(v[0])
-    print(realPlaces)
+    # print(realPlaces)
+    # print(placeNames)
     # print(realCoords)
     # print(businessIds)
-    """the below code will eventually have to use the user's data and store it as
-    an id in the table: it could be appended to the review_mini dataset, or somewhere 
-    else"""
     # currently, the next goal is to try to filter the review data so it
     collabResults = [] 
     algo = makeCollab(myCity=myCity, myState=myState)
@@ -99,5 +98,5 @@ contentAttributes = ['Restaurant']):
 
 # searchLocationsRec(inputLat=43.0848679, inputLong=-89.376, myRadius=5000, 
 # marginOfError=0.03, contentAttributes=['Ice Cream & Frozen Yogurt'], numOfSug=10,
-# myCity="Madison", myState="Wisconsin", userID =KoY4KGxev8gdg5qQpyDlZA)
-algo = makeCollab(myCity='Madison', myState='Wisconsin')
+# myCity="Madison", myState="Wisconsin", userID ='KoY4KGxev8gdg5qQpyDlZA', typeList=types.TYPE_GAS_STATION)
+# algo = makeCollab(myCity='Madison', myState='Wisconsin')

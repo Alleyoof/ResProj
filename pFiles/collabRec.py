@@ -35,7 +35,7 @@ def makeCollab(myCity, myState, test=False):
 
     sim_options = {
         "name": "cosine",
-        "user_based": False,  # Compute  similarities between items
+        "user_based": False,  
     }
 
     algo = KNNWithMeans(sim_options=sim_options)
@@ -50,3 +50,5 @@ def makeCollab(myCity, myState, test=False):
     #print(prediction.est)
     print(f'Collab reccomender generated in {(time.process_time() - startTime):.3}s')
     return algo
+
+# makeCollab('Madison', 'Wisconsin')

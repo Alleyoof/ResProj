@@ -81,20 +81,20 @@ def createRec():
     latitude = float(request.form.get('latitude', 0))
     longitude = float(request.form.get('longitude', 0))
     searchRadius = int(request.form.get('searchRadius', 0))
-    categories = [request.form.get('categories', 0)]
+    category = request.form.get('categories', 0)
     numSug = int(request.form.get('numSug', 0))
     city = request.form.get('city', 0)
     state = request.form.get('state', 0)
     type = request.form.get('types', 0)
-    if type == "restaurant":
+    if category == "Restaurants":
         myType = types.TYPE_RESTAURANT
     else:
         myType = types.TYPE_BANK
     userID = session.get('user')['email']
-    # collabVals = searchLocationsRec(latitude, longitude, searchRadius,  
-    # numSug, city, state, userID, typeList=myType)
     collabVals, contentVals = searchLocationsRec(latitude, longitude, searchRadius,  
-    numSug, city, state, 'KoY4KGxev8gdg5qQpyDlZA', typeList=myType, contentAttributes=categories)
+    numSug, city, state, userID, typeList=myType)
+    # collabVals, contentVals = searchLocationsRec(latitude, longitude, searchRadius,  
+    # numSug, city, state, 'KoY4KGxev8gdg5qQpyDlZA', typeList=myType, contentAttributes=categories)
     return render_template("recResults.html", res1 = collabVals, res2 = contentVals)
 
 @app.route('/login')
