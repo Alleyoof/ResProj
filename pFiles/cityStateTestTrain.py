@@ -33,7 +33,7 @@ def createCSV(myCity, myState):
     del df['useful']
     del df['funny']
     del df['cool']
-    train = df.sample(frac=0.995,random_state=0)
+    train = df.sample(frac=0.99,random_state=0)
     test = df.drop(train.index)
     train.to_csv(f'../csvFiles/yTrain{myCity[:3].lower()}_{myState[:3].lower()}.csv')
     test.to_csv(f'../csvFiles/yTest{myCity[:3].lower()}_{myState[:3].lower()}.csv')

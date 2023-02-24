@@ -4,9 +4,14 @@
         <title>Your listed reviews.</title>
     </head>
     <body>
-        <p>{{reviews}}</p>
+        <div class="flashes">
+            {% for message in get_flashed_messages() %}
+              {{ message }}
+            {% endfor %}
+        </div>
         <p>The below form can be used to delete a review.</p>
         <form action = "delReview" method = 'post'>
+            <input type = "text" id = 'name' name = 'name' placeholder="name">
             <input type = "text" id = "address" name = "address" placeholder="address">
             <input type = "text" id = 'city' name = 'city' placeholder="city">
             <input type = "text" id = 'state' name = 'state' placeholder="state">

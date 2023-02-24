@@ -3,9 +3,9 @@ from surprise import Reader
 from surprise import KNNWithMeans
 import pandas as pd
 import time
-from csv import reader
 def makeCollab(myCity, myState, test=False):
-    global algo, reader
+    global algo
+    from csv import reader
     startTime = time.process_time()
     if not test:
         with open(f'../csvFiles/y{myCity.lower()[:3]}_{myState.lower()[:3]}.csv', 'r', encoding="utf-8") as file:

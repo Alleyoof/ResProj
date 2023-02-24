@@ -33,7 +33,7 @@ def findAdd(address, myCity, myState, userID, rating):
     dfrev.loc[myReviewid] = [userID, myBusiId, rating] 
     dfrev.to_csv(f'../csvFiles/y{myCity[:3].lower()}_{myState[:3].lower()}.csv')
 
-def findDel(address, myCity, myState, userID, rating):
+def findDel(name, address, myCity, myState, userID, rating):
     if not os.path.exists(f'../csvFiles/y{myCity.lower()[:3]}_{myState.lower()[:3]}.csv'):
         print('No reviews to delete')
         return
@@ -50,8 +50,10 @@ def findDel(address, myCity, myState, userID, rating):
     index_col= False
     )
 
-    business = dfbusi[dfbusi['address'] == f'\"{address}\"']
+    business = dfbusi[(dfbusi['address'] == f'\"{address}\"') & (dfbusi['name'] == f'\"{name}\"')]
+    # print(business)
     myBusiId = business['business_id'].iloc[0]
+    # print(myBusiId)
     dfrev = dfrev[(dfrev['user_id'] != userID) | (dfrev['business_id'] != myBusiId)]
     dfrev.to_csv(f'../csvFiles/y{myCity[:3].lower()}_{myState[:3].lower()}.csv')
 

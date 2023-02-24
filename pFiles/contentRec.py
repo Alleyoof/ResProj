@@ -4,6 +4,8 @@ from sklearn.metrics.pairwise import linear_kernel
 import time
 
 def makeContent(myCity, myState, categories):
+    # print()
+    # print(categories)
     startTime = time.process_time()
     ds = pd.read_csv(f"../csvFiles/b{myCity.lower()[:3]}_{myState.lower()[:3]}.csv")
     # the below code adds a dummy data point that holds the needed categories(done out of laziness lol)
@@ -28,19 +30,33 @@ def makeContent(myCity, myState, categories):
     return ds, results
 
 def item(ds, id):
-    return ds.loc[ds['business_id'] == id]['name'].tolist()[0].split(' - ')[0]
+    name = ds.loc[ds['business_id'] == id]['name'].tolist()[0].split(' - ')[0]
+    address = ds.loc[ds['business_id'] == id]['address'].tolist()[0].split(' - ')[0]
+    stars = ds.loc[ds['business_id'] == id]['stars'].tolist()[0]
+    # print(address)
+    return [name[1:-1], address[1:-1], stars]
 
 # Just reads the results out of the dictionary.
 def recommend(ds, results, item_id, num):
     print("Recommending " + str(num) + " places")
     print("-------")
     v = results[item_id]
+    # print(v)
     filteredResults = [c for c in v if item(ds, c[1]) != item(ds, item_id)]
-    recs = filteredResults[:num]
+    # print(filteredResults)
+    # recs = filteredResults[:num]
     results = []
-    for rec in recs:
-        results.append((item(ds, rec[1]), str(rec[0])))
+    resNames = []
+    count = 0
+    for rec in filteredResults:
+        if count >= num:
+            break
+        if item(ds, rec[1])[0] not in resNames:
+            count += 1
+            results.append((*item(ds, rec[1]), str(rec[0] * 100)))
+            resNames.append(item(ds,rec[1])[0])
         # print("Recommended: " + item(ds, rec[1]) + " (score:" + str(rec[0]) + ")")
     return results
 
-# recommend(item_id='d5MXSInbPrPGK1lZxA3orQ', num=15)
+# myDs, myResults = makeContent('Madison', 'Wisconsin', ['Ice Cream & Frozen Yogurt'])
+# print(recommend(myDs, myResults, item_id='addedCategory', num=15))

@@ -5,7 +5,10 @@
     </head>
     <body>
         <a href = "/home">Go back!</a>
-        <p>Collab results: {{res1}}</p>
-        <p>Content results: {{res2}}</p>
+        <div class="flashes">
+            {% for message in get_flashed_messages() %}
+              {{ message }}
+            {% endfor %}
+        </div>
     </body>
 </html>

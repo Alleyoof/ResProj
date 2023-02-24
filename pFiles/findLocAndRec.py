@@ -32,8 +32,7 @@ def sameLatLong(lat1, long1, lat2, long2, MOE):
     return True if abs(lat1 - lat2) < MOE and abs(long1 - long2) < MOE else False
 
 def searchLocationsRec(inputLat, inputLong, myRadius, 
-numOfSug, myCity, myState, userID, typeList, marginOfError = 0.03,
-contentAttributes = ['Restaurant']):
+numOfSug, myCity, myState, userID, collabAttribute, contentAttributes, marginOfError = 0.03):
     # startTime = time.process_time()
     print(f'Starting searchLocationsRec')
     # print(f'Type: {typeList}')
@@ -41,14 +40,14 @@ contentAttributes = ['Restaurant']):
 		lat_lng= {'lat': inputLat, 'lng': inputLong}, #Madison, Wisconscin
 		#lat_lng ={'lat': g.lat, 'lng': g.lng},
 		radius = myRadius, #radius in meters
-		type = typeList) # this should NOT be types
+		type = collabAttribute) # this should NOT be types
 
     if query_result.has_attributions:
         print(query_result.html_attributions)
     placeNames = []
     # app = Nominatim(user_agent="tutorial")
     placeCoords = [] # stores place coords, tuples of lat and lng
-    placeAddresses= []
+    # placeAddresses= []
     for place in query_result.places:
         #print(place)
         # print(place.name)
@@ -56,8 +55,8 @@ contentAttributes = ['Restaurant']):
         placeCoords.append((place.geo_location['lat'], place.geo_location['lng']))
         #print("Latitude", place.geo_location['lat'])
         #print("Longitude", place.geo_location['lng'])
-        address = get_address_by_location(place.geo_location['lat'],place.geo_location['lng'])['display_name']
-        placeAddresses.append(address)
+        # address = get_address_by_location(place.geo_location['lat'],place.geo_location['lng'])['display_name']
+        # placeAddresses.append(address)
         #print()
 
     # Iterate over the search results, prints lat, lng, and address
@@ -75,7 +74,7 @@ contentAttributes = ['Restaurant']):
                     realPlaces.append(v[1][1:-1])
                     myI = realPlaces.index(v[1][1:-1])
                     realCoords.append((float(placeCoords[myI][0]), float(placeCoords[myI][1])))
-                    realAddresses.append(placeAddresses) # add stuff
+                    realAddresses.append(v[2]) # add stuff
                     businessIds.append(v[0])
     # print(realPlaces)
     # print(placeNames)
@@ -84,11 +83,12 @@ contentAttributes = ['Restaurant']):
     # currently, the next goal is to try to filter the review data so it
     collabResults = [] 
     algo = makeCollab(myCity=myCity, myState=myState)
+    print(contentAttributes)
     ds, results = makeContent(myCity=myCity, myState=myState, categories=contentAttributes)
     # only uses the places in Madison
     for i, v in enumerate(businessIds):
         prediction = algo.predict(userID, v)
-        collabResults.append((realPlaces[i], prediction.est))
+        collabResults.append((realPlaces[i], realAddresses[i][1:-1], prediction.est))
         # print(f'Collab: {realPlaces[i]} - {prediction.est}')
     contentResults = recommend(ds, results, "addedCategory", numOfSug)
     # print(collabResults)
