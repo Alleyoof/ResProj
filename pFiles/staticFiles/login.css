@@ -1,0 +1,28 @@
+p {
+    size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    display: flex;
+    color: white;
+    border: 20px;
+}
+
+body{
+    background-color: #272727;
+    font-family: "system-ui";
+    display: flex;
+    justify-content: center;
+    align-items:center;
+}
+
+img{
+    clear: both;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+    max-width: 100%;
+    height: auto;
+}
+a{
+    margin: 20px;
+}

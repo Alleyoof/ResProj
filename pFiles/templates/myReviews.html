@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Your listed reviews.</title>
+        <link rel = "stylesheet" href= "/staticFiles/standard.css" type = 'text/css'>
     </head>
     <body>
         <div class="flashes">
@@ -10,14 +11,26 @@
             {% endfor %}
         </div>
         <p>The below form can be used to delete a review.</p>
-        <form action = "delReview" method = 'post'>
-            <input type = "text" id = 'name' name = 'name' placeholder="name">
-            <input type = "text" id = "address" name = "address" placeholder="address">
-            <input type = "text" id = 'city' name = 'city' placeholder="city">
-            <input type = "text" id = 'state' name = 'state' placeholder="state">
-            <input type = "number" id = 'rating' name = 'rating' min = '1' max = '5' placeholder = 'rating'>
-            <button type="submit" value="submit">Submit</button>
-        </form>
+        <div class = 'aForm'>
+            <form action = "delReview" method = 'post'>
+                <input type = "text" id = 'name' name = 'name' placeholder="name">
+                <input type = "text" id = "address" name = "address" placeholder="address">
+                <input type = "text" id = 'city' name = 'city' placeholder="city">
+                <input type = "text" id = 'state' name = 'state' placeholder="state">
+                <button type="submit" value="submit">Submit</button>
+            </form>
+        </div>
+        <p>Input places and their respective rating to add reviews</p>
+        <div class = 'aForm'>
+            <form action= "/receiveAdd" method = "post" autocomplete="on">
+                <input type = "text" id = 'name' name = 'name' placeholder="name">
+                <input type = "text" id = 'address' name = 'address' placeholder="address">
+                <input type = "text" id = 'city' name = 'city' placeholder="city">
+                <input type = "text" id = 'state' name = 'state' placeholder="state">
+                <input type = "number" id = 'rating' name = 'rating' min = '1' max = '5' placeholder = 'rating'>
+                <button type="submit" value="submit">Submit</button>
+            </form>
+        </div>
         <a href = "/home">Go back!</a>
     </body>
 </html>

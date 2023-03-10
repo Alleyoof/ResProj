@@ -1,0 +1,59 @@
+p, h2{
+    size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    color: white;
+    text-align: center;
+    margin: auto;
+    align-content: center;
+    /* line-height: 2; */
+    padding: 10px;
+}
+.alert{
+    border: 5px;
+    border-style: dashed;
+    border-color: white;
+    text-align: center;
+    margin: auto;
+    align-content: center;
+    padding: 10px;
+    size: 20px;
+    color: white;
+}
+a{
+    text-align: center;
+    color: white;
+    display: block;
+    margin: 0 auto;
+    padding-top: 15px;   
+}
+form{
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+.aForm{
+    display: block;
+    text-align: center;
+}
+input{
+    width: 100px;
+}
+table{
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+table, th, td{
+    border: 1px, solid, white;
+    /* border-color: white; */
+}
+.myTable{
+    margin-left: auto;
+    margin-right: auto;
+}
+body{
+    background-color: #272727;
+    font-family: "system-ui";
+}

@@ -58,7 +58,8 @@ numOfSug, myCity, myState, userID, collabAttribute, contentAttributes, marginOfE
         # address = get_address_by_location(place.geo_location['lat'],place.geo_location['lng'])['display_name']
         # placeAddresses.append(address)
         #print()
-
+    # print(placeNames)
+    # print(place
     # Iterate over the search results, prints lat, lng, and address
     realPlaces = []
     realCoords = []

@@ -5,7 +5,7 @@ import string, random
 import numpy as np
 
 # the following are methods that add, delete, and find reviews
-def findAdd(address, myCity, myState, userID, rating):
+def findAdd(name, address, myCity, myState, userID, rating):
     if not os.path.exists(f'../csvFiles/y{myCity.lower()[:3]}_{myState.lower()[:3]}.csv'):
         createCSV(myCity=myCity, myState=myState)
     dfrev = pd.read_csv(f'../csvFiles/y{myCity.lower()[:3]}_{myState.lower()[:3]}.csv',
@@ -23,7 +23,7 @@ def findAdd(address, myCity, myState, userID, rating):
 
     # fix the below code, find the id of business based on location
     # perhaps switch to lat, long (similar to findLocAndRec)
-    business = dfbusi[dfbusi['address'] == f'\"{address}\"']
+    business = dfbusi[(dfbusi['address'] == f'\"{address}\"') & (dfbusi['name'] == f'\"{name}\"')]
     if len(business['business_id']) == 0:
         print("Invalid values")
         return -1 
@@ -33,7 +33,7 @@ def findAdd(address, myCity, myState, userID, rating):
     dfrev.loc[myReviewid] = [userID, myBusiId, rating] 
     dfrev.to_csv(f'../csvFiles/y{myCity[:3].lower()}_{myState[:3].lower()}.csv')
 
-def findDel(name, address, myCity, myState, userID, rating):
+def findDel(name, address, myCity, myState, userID):
     if not os.path.exists(f'../csvFiles/y{myCity.lower()[:3]}_{myState.lower()[:3]}.csv'):
         print('No reviews to delete')
         return

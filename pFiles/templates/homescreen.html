@@ -3,49 +3,60 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel = "stylesheet" href= "/staticFiles/standard.css" type = 'text/css'>
         <title>Authlib Connect</title>
     </head>
     <body>
-        <p>Welcome {{name}}!</p>
+        {% block content %}
+        <div class="container">
+            {% for message in get_flashed_messages() %}
+            <div class="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                {{message}}
+            </div>
+            <!-- <div class="alert alert-warning alert-dismissible">
+                <button type="button" value = "close" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div> -->
+            {% endfor %}
+            {% block page_content %}{% endblock %}
+        </div>
+        {% endblock %}
+        <p>Welcome <b>{{name}}!</b></p>
         <p>Input your respective data to generate a recommended area to go to.</p>
-        <p>Some notes - the collab recommender will only accept one type of category.</p>
-        <p>Multiple categories can be selected with the control key.</p>
-        <form action= "/generateRec" method = "post" autocomplete="on">
-            <input type = "text" id = 'latitude' value = "43.0707104" name = 'latitude' placeholder="latitude">
-            <input type = "text" id = 'longitude' value = "-89.4233404" name = 'longitude' placeholder="longtitude">
-            <input type = "text" id = 'searchRadius' value = "5000" name = 'searchRadius' placeholder="searchRadius">
-            <select name = 'categories' id = 'categories'>
-                <option value = 'Fashion'>Fashion</option>
-                <option value = 'Restaurants'>Restaurants</option>
-                <option value = 'Barbers'>Barber</option>
-                <option value = 'Doctors'>Doctor</option>
-            </select>
-            <select multiple name = 'attributes' id = 'attributes'>
-                <option value = 'Italian'>Italian</option>
-                <option value = 'Ice Cream & Frozen Yogurt'>Ice Cream</option>
-                <option value = 'Chicken Wings'>Wings</option>
-                <option value = 'Coffee & Tea'>Coffee & Tea</option>
-                <option value = 'Hot Dogs'>Hot Dogs</option>
-            </select>
-            <input type = "text" id = 'numSug' name = 'numSug' value = "20" placeholder="number of suggestions">
-            <input type = "text" id = 'city' name = 'city' value = 'Madison' placeholder="city">
-            <input type = "text" id = 'state' name = 'state' value = "Wisconsin" placeholder="state">
-            <button type="submit" value="submit">Submit</button>
-        </form>
-        <p>Input places and their respective rating into the query below</p>
-        <form action= "/receiveAdd" method = "post" autocomplete="on">
-            <input type = "text" id = 'address' name = 'address' placeholder="address">
-            <input type = "text" id = 'city' name = 'city' placeholder="city">
-            <input type = "text" id = 'state' name = 'state' placeholder="state">
-            <input type = "number" id = 'rating' name = 'rating' min = '1' max = '5' placeholder = 'rating'>
-            <button type="submit" value="submit">Submit</button>
-        </form>
+        <p>Some notes - the collab recommender will only accept one type of category.</p>            <p>Multiple categories can be selected with the control key.</p>
+        <div class = "aForm">
+            <form action= "/generateRec" method = "post" autocomplete="on">
+                <input type = "text" id = 'latitude' value = "43.0707104" name = 'latitude' placeholder="latitude">
+                <input type = "text" id = 'longitude' value = "-89.4233404" name = 'longitude' placeholder="longtitude">
+                <input type = "text" id = 'searchRadius' value = "5000" name = 'searchRadius' placeholder="searchRadius">
+                <select name = 'categories' id = 'categories'>
+                    <option value = 'Fashion'>Fashion</option>
+                    <option value = 'Restaurants'>Restaurants</option>
+                    <option value = 'Barbers'>Barber</option>
+                    <option value = 'Doctors'>Doctor</option>
+                </select>
+                <select multiple name = 'attributes' id = 'attributes'>
+                    <option value = 'Italian'>Italian</option>
+                    <option value = 'Ice Cream & Frozen Yogurt'>Ice Cream</option>
+                    <option value = 'Chicken Wings'>Wings</option>
+                    <option value = 'Coffee & Tea'>Coffee & Tea</option>
+                    <option value = 'Hot Dogs'>Hot Dogs</option>
+                </select>
+                <input type = "text" id = 'numSug' name = 'numSug' value = "20" placeholder="number of suggestions">
+                <input type = "text" id = 'city' name = 'city' value = 'Madison' placeholder="city">
+                <input type = "text" id = 'state' name = 'state' value = "Wisconsin" placeholder="state">
+                <button type="submit" value="submit">Submit</button>
+            </form>
+        </div>
         <p>Input your city and state to view all of the reviews you have added to the website.</p>
-        <form action = /allReviews method = "post">
-            <input type = "text" id = 'city' name = 'city' placeholder = 'city'>
-            <input type = 'text' id = 'state' name = 'state' placeholder= 'state'>
-            <button type = "submit" value = "submit">Submit</button>
-        </form>
+        <div class = "aForm">
+            <form action = /allReviews method = "post">
+                <input type = "text" id = 'city' name = 'city' value = 'Madison' placeholder = 'city'>
+                <input type = 'text' id = 'state' name = 'state' value = 'Wisconsin' placeholder= 'state'>
+                <button type = "submit" value = "submit">Submit</button>
+            </form>
+        </div>
         <a href="/logout">Click here to Logout!</a>
     </body>
 </html>

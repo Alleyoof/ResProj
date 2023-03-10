@@ -1,6 +1,6 @@
 from surprise import Dataset
 from surprise import Reader
-from surprise import KNNWithMeans
+from surprise import KNNWithMeans, SVD, NMF
 import pandas as pd
 import time
 def makeCollab(myCity, myState, test=False):
@@ -38,8 +38,9 @@ def makeCollab(myCity, myState, test=False):
         "user_based": False,  
     }
 
-    algo = KNNWithMeans(sim_options=sim_options)
-
+    # algo = KNNWithMeans(sim_options=sim_options)
+    algo = SVD(n_epochs=20)
+    # algo = 
     # print("Building training set...")
     trainingSet = data.build_full_trainset() # build set
 
