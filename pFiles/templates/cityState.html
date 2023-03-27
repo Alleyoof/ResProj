@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Put in your City and State!</title>
+        <link rel = "stylesheet" href= "/staticFiles/standard.css" type = 'text/css'>
+    </head>
+    <body>
+        <ul>
+            <li><a href="/cityState">Change Location</a></li>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/allReviews">See & Change Reviews</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+        <p>Insert your state and city.</p>
+        <div class = 'aForm'>
+            <form action= "/recCityState" method = "post" autocomplete="on">
+                <input type = "text" id = 'state' name = 'state' placeholder="state">
+                <input type = "text" id = 'city' name = 'city' placeholder="city">
+                <button type="submit" value="submit">Submit</button>
+            </form>
+        </div>
+    </body>
+</html>

@@ -6,7 +6,8 @@ p, h2{
     margin: auto;
     align-content: center;
     /* line-height: 2; */
-    padding: 10px;
+    padding: 20px;
+    /* padding-bottom: 20px; */
 }
 .alert{
     border: 5px;
@@ -23,14 +24,16 @@ a{
     text-align: center;
     color: white;
     display: block;
-    margin: 0 auto;
-    padding-top: 15px;   
+    width: 160px;
+    margin: auto;
+    padding-top: 30px;   
 }
 form{
     display: inline-block;
     margin-left: auto;
     margin-right: auto;
     text-align: left;
+    padding: 20px;
 }
 .aForm{
     display: block;
@@ -57,3 +60,28 @@ body{
     background-color: #272727;
     font-family: "system-ui";
 }
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  /* Change the link color to #111 (black) on hover */
+  li a:hover {
+    background-color: #111;
+  }
+  

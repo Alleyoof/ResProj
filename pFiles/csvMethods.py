@@ -91,6 +91,15 @@ def randomword(length):
    letters = string.ascii_lowercase
    return 'NEW:' + ''.join(random.choice(letters) for i in range(length))
 
+# def allUnique():
+#     dfbusi = pd.read_csv(f'../csvFiles/yelp_business.csv',
+#     header=0, 
+#     index_col= False)
+#     myV = dfbusi.categories.str.split(';')
+#     print(myV)
+#     return myV
+    # print(myV)
+# allUnique('Madison', 'Wisconsin')
 # findAdd('32 W Towne Mall', 'Madison', 'Wisconsin', 'lwkhnfwejioi32423798', 5)
 # findAdd('2302 Packers Ave', 'Madison', 'Wisconsin', 'lwkhnfwejioi32423798', 4)
 # findAdd('111 N Broom St', 'Madison', 'Wisconsin', 'lwkhnfwejioi32423798', 3)

@@ -29,35 +29,43 @@ oauth.register(
 def loginQuery():
     return render_template('loginPage.html')
 
+@app.route('/cityState')
+def cityState():
+    return render_template('cityState.html')
+
+@app.route('/recCityState', methods = ["GET", "POST"])
+def recCityState():
+    session['city'] = request.form.get('city')
+    session['state'] = request.form.get('state')
+    # print(session['city'])
+    # print(session['state'])
+    return redirect('/home')
+
 @app.route('/home')
 def homePage():
     user = session.get('user')
-    # print(user)
-    return render_template('homescreen.html', name=user['given_name'])
+    city = session.get('city')
+    state = session.get('state')
+    return render_template('homescreen.html', name=user['given_name'], city = city, state = state)
 
 @app.route('/receiveAdd', methods = ["GET", "POST"])
 def addToTable():
     print(request.form)
-    name = request.form. get('name')
+    name = request.form.get('name')
     address = request.form.get('address', 0)
     userID = session.get('user')['email']
     print(userID)
     rating = request.form.get('rating')
-    city = request.form.get('city')
-    state = request.form.get('state')
+    city = session.get('city')
+    state = session.get('state')
     val = findAdd(name, address, city, state, userID, rating)
-    if val == -1:
-        flash('value failed to add')
-        # do something to show it broke
-    else:
-        flash('Review added!')
-    return redirect('/home')
+    return redirect('/allReviews')
 
 @app.route('/allReviews', methods = ["GET", "POST"])
 def getRev():
     userID = session.get('user')['email']
-    state = request.form.get("state")
-    city = request.form.get("city")
+    city = session.get('city')
+    state = session.get('state')
     val = getReviews(userID, city, state)
     if val == -1:
         return redirect('/home')
@@ -75,16 +83,12 @@ def delRev():
     address = request.form.get('address', 0)
     userID = session.get('user')['email']
     # print(userID)
-    city = request.form.get('city')
-    state = request.form.get('state')
+    city = session.get('city')
+    state = session.get('state')
     name = request.form.get('name')
     print(address)
     val = findDel(name, address, city, state, userID)
-    if val == -1:
-        flash('value failed to change')
-    else:
-        flash('Review Deleted')
-    return redirect('/home')
+    return redirect('/allReviews')
 
 @app.route('/generateRec', methods = ["GET", "POST"])
 def createRec():
@@ -95,8 +99,8 @@ def createRec():
     category = request.form.get('categories')
     attributes = request.form.getlist('attributes')
     numSug = int(request.form.get('numSug', 0))
-    city = request.form.get('city', 0)
-    state = request.form.get('state', 0)
+    city = session.get('city')
+    state = session.get('state')
     # print(category        
     if "Restaurants" == category:
         myCon = types.TYPE_RESTAURANT
@@ -138,9 +142,11 @@ def login():
 def auth():
     token = oauth.google.authorize_access_token()
     session['user'] = token['userinfo']
-    return redirect('/home')
+    return redirect('/cityState')
 
 @app.route('/logout')
 def logout():
     session.pop('user', None)
+    session.pop('city', None)
+    session.pop('state', None)
     return redirect('/')
