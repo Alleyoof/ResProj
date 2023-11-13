@@ -12,7 +12,7 @@ from contentRec import makeContent, recommend
 # g = geocoder.ip('me')
 # print(g.latlng)
 
-API_KEY = 'AIzaSyAf5BCUxTS5kSctIbflX-zBH0X6A9itdG8'
+API_KEY = ''
 google_places = GooglePlaces(API_KEY)
 # below are adjustable parameters
 #it should be noted that currently the number for MOE is arbitrary,
