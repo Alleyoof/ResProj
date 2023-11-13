@@ -11,8 +11,8 @@ app = Flask(__name__, static_folder='staticFiles')
 app.secret_key = os.urandom(12)
 
 CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
-googleClientId = '998511586381-jir9hao48i7ua4ukmkd3ln8bo4k6n4g8.apps.googleusercontent.com'
-googleSecret = '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'
+googleClientId = ''
+googleSecret = ''
 oauth = OAuth(app)
 
 oauth.register(
